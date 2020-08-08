@@ -52,6 +52,8 @@ class Init < ActiveRecord::Migration[5.0]
     end
 
     create_table "user".pluralize do |t|
+      t.string :email, limit: 255, null: false
+      t.string :password_digest, limit: 511, null: false
       t.string :disclose_id, limit: 12, null: false
       t.string :first_name, limit: 255, null: false
       t.string :last_name, limit: 255, null: false
