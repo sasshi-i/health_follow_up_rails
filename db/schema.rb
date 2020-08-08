@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
   end
 
   create_table "answer_options", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.integer "question", null: false
+    t.integer "question_id", null: false
     t.string "content", limit: 100, null: false
     t.boolean "is_alert", default: false, null: false
     t.boolean "is_deleted", default: false, null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
 
   create_table "emergency_contacts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", limit: 100, null: false
-    t.integer "phone_number", null: false
+    t.string "phone_number", limit: 11
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["phone_number"], name: "index_emergency_contacts_on_phone_number", unique: true
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
 
   create_table "questions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "content", limit: 300, null: false
-    t.integer "question_type"
+    t.integer "question_type_id", null: false
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -133,13 +133,15 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
   end
 
   create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "password_digest", limit: 511, null: false
     t.string "disclose_id", limit: 12, null: false
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "gender", limit: 10, null: false
     t.string "address", limit: 511, null: false
-    t.integer "phone_number", null: false
-    t.datetime "home_remedy_start_at"
+    t.string "phone_number", limit: 11, null: false
+    t.date "home_remedy_start_on"
     t.string "affiliation", limit: 128
     t.integer "user_status_id", null: false
     t.integer "user_role_id", null: false

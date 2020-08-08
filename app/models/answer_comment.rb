@@ -1,5 +1,5 @@
 class AnswerComment < ApplicationRecord
   # TODO: バリデーション
-  has_one :answered_time
+  has_one :answer
   belongs_to :user
 end
