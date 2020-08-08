@@ -108,6 +108,14 @@ class Init < ActiveRecord::Migration[5.0]
     end
     add_reference :answer_options, :questions, foreign_key: true
 
+    create_table "answer".pluralize do |t|
+      t.integer :user_id, null: false
+      t.boolean :is_deleted, null: false, default: false
+
+      t.timestamps
+    end
+    add_reference :answers, :users, foreign_key: true
+
     create_table "answer_contents".pluralize do |t|
       t.integer :answer_option_id
       t.integer :question_id, null: false
@@ -120,14 +128,6 @@ class Init < ActiveRecord::Migration[5.0]
     add_reference :answer_contents, :questions, foreign_key: true
     add_reference :answer_contents, :answers, foreign_key: true
 
-    create_table "answer".pluralize do |t|
-      t.integer :user_id, null: false
-      t.boolean :is_deleted, null: false, default: false
-
-      t.timestamps
-    end
-    add_reference :answers, :users, foreign_key: true
-    
 
     create_table "answer_comment".pluralize do |t|
       t.string :comment, limit: 511

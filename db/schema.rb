@@ -16,13 +16,28 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
     t.string "comment", limit: 511
     t.datetime "answer_confirmed_at", null: false
     t.integer "answer_confirmed_user", null: false
-    t.integer "answer_time_id", null: false
+    t.integer "answer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "answer_confirmed_user_id"
-    t.integer "answer_times_id"
+    t.integer "answers_id"
     t.index ["answer_confirmed_user_id"], name: "index_answer_comments_on_answer_confirmed_user_id"
-    t.index ["answer_times_id"], name: "index_answer_comments_on_answer_times_id"
+    t.index ["answers_id"], name: "index_answer_comments_on_answers_id"
+  end
+
+  create_table "answer_contents", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
+    t.integer "answer_option_id"
+    t.integer "question_id", null: false
+    t.integer "answer_id", null: false
+    t.string "content", limit: 511
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "answer_options_id"
+    t.integer "questions_id"
+    t.integer "answers_id"
+    t.index ["answer_options_id"], name: "index_answer_contents_on_answer_options_id"
+    t.index ["answers_id"], name: "index_answer_contents_on_answers_id"
+    t.index ["questions_id"], name: "index_answer_contents_on_questions_id"
   end
 
   create_table "answer_options", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -36,26 +51,12 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
     t.index ["questions_id"], name: "index_answer_options_on_questions_id"
   end
 
-  create_table "answer_times", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "answers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.integer "answer_option_id"
-    t.integer "question_id", null: false
-    t.string "content", limit: 511
-    t.string "referral_status", limit: 1000
-    t.integer "answer_time_id", null: false
+    t.boolean "is_deleted", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "users_id"
-    t.integer "answer_options_id"
-    t.integer "questions_id"
-    t.integer "answer_times_id"
-    t.index ["answer_options_id"], name: "index_answers_on_answer_options_id"
-    t.index ["answer_time_id"], name: "index_answers_on_answer_time_id"
-    t.index ["answer_times_id"], name: "index_answers_on_answer_times_id"
-    t.index ["questions_id"], name: "index_answers_on_questions_id"
     t.index ["users_id"], name: "index_answers_on_users_id"
   end
 
@@ -157,12 +158,12 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
     t.index ["user_statuses_id"], name: "index_users_on_user_statuses_id"
   end
 
-  add_foreign_key "answer_comments", "answer_times", column: "answer_times_id"
+  add_foreign_key "answer_comments", "answers", column: "answers_id"
   add_foreign_key "answer_comments", "users", column: "answer_confirmed_user_id"
+  add_foreign_key "answer_contents", "answer_options", column: "answer_options_id"
+  add_foreign_key "answer_contents", "answers", column: "answers_id"
+  add_foreign_key "answer_contents", "questions", column: "questions_id"
   add_foreign_key "answer_options", "questions", column: "questions_id"
-  add_foreign_key "answers", "answer_options", column: "answer_options_id"
-  add_foreign_key "answers", "answer_times", column: "answer_times_id"
-  add_foreign_key "answers", "questions", column: "questions_id"
   add_foreign_key "answers", "users", column: "users_id"
   add_foreign_key "questions", "question_types", column: "question_types_id"
   add_foreign_key "referral_hospitals", "users", column: "users_id"

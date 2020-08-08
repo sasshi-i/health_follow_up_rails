@@ -1,6 +1,6 @@
 class Answer < ApplicationRecord
   # TODO: バリデーション
-  belongs_to :answer_comment
+  has_one :answer_comment
   belongs_to :user
   has_many :answer_contents
 end

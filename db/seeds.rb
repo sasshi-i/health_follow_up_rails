@@ -12,6 +12,8 @@ UserStatus.destroy_all
 UserRole.destroy_all
 User.destroy_all
 AnswerOption.destroy_all
+AnswerContent.destroy_all
+Answer.destroy_all
 Question.destroy_all
 QuestionType.destroy_all
 
@@ -35,3 +37,9 @@ FactoryBot.create(:question_option_1)
 FactoryBot.create(:answer_option_1_question_option_1)
 FactoryBot.create(:answer_option_2_question_option_1)
 FactoryBot.create(:answer_option_3_question_option_1)
+
+FactoryBot.create(:answer_1_user_1)
+
+FactoryBot.create(:answer_content_1_question_numeric_1)
+FactoryBot.create(:answer_content_1_question_text_1)
+FactoryBot.create(:answer_content_1_question_option_1)

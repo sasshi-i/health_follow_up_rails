@@ -1,9 +1,7 @@
 FactoryBot.define do
-  factory :answer_question_numeric_1, class: AnswerOption do
+  factory :answer_1_user_1, class: Answer do
     id { 1 }
-    question_id { 20 }
-    content { "はい" }
-    is_alert { true }
+    user_id { 1 }
     is_deleted { false }
   end
 end
