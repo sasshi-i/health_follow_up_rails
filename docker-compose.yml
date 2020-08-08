@@ -4,7 +4,7 @@ services:
     build:
       context: .
     volumes:
-      - .:/health-obs-api
+      - .:/health-fu-api
     ports:
       - "43001:3000"
     tty: true

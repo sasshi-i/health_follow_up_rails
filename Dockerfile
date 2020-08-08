@@ -18,14 +18,14 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 RUN gem install bundler
-RUN mkdir /health-obs-api
-WORKDIR /health-obs-api
+RUN mkdir /health-fu-api
+WORKDIR /health-fu-api
 
-ADD Gemfile /health-obs-api/Gemfile
-ADD Gemfile.lock /health-obs-api/Gemfile.lock
+ADD Gemfile /health-fu-api/Gemfile
+ADD Gemfile.lock /health-fu-api/Gemfile.lock
 
 RUN bundle install --jobs=4
-ADD . /qa-api
+ADD . /health-fu-api
 
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
