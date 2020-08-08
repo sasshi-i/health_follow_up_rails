@@ -69,6 +69,7 @@ class Init < ActiveRecord::Migration[5.0]
       t.timestamps
     end
     add_index "user".pluralize, :disclose_id, unique: true
+    add_index "user".pluralize, :email, unique: true
     add_reference :users, :user_statuses, foreign_key: true
     add_reference :users, :user_roles, foreign_key: true
     add_reference :users, :prefectures, foreign_key: true
@@ -121,6 +122,7 @@ class Init < ActiveRecord::Migration[5.0]
       t.integer :question_id, null: false
       t.integer :answer_id, null: false
       t.string :content, limit: 511
+      t.boolean :is_deleted, null: false, default: false
 
       t.timestamps
     end
@@ -134,6 +136,7 @@ class Init < ActiveRecord::Migration[5.0]
       t.datetime :answer_confirmed_at, null: false
       t.integer :answer_confirmed_user, null: false
       t.integer :answer_id, null: false
+      t.boolean :is_deleted, null: false, default: false
 
       t.timestamps
     end
