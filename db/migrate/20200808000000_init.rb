@@ -1,3 +1,4 @@
+require "csv"
 class Init < ActiveRecord::Migration[5.0]
   def change
     create_table "emergency_contact".pluralize do |t|
@@ -40,10 +41,15 @@ class Init < ActiveRecord::Migration[5.0]
 
     create_table "prefecture".pluralize do |t|
       t.string :name, limit: 45, null: false
+      t.integer :display_order, null: false
 
       t.timestamps
     end
     add_index "prefecture".pluralize, :name, unique: true
+    csv_data = CSV.read("db/master_data/prefectures.csv", headers: true)
+    csv_data.each do |data|
+      Prefecture.create!(data.to_hash)
+    end
 
     create_table "user".pluralize do |t|
       t.string :disclose_id, limit: 12, null: false

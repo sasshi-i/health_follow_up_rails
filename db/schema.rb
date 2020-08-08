@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
 
   create_table "prefectures", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "name", limit: 45, null: false
+    t.integer "display_order", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_prefectures_on_name", unique: true
