@@ -4,9 +4,9 @@ class UsersController < ApplicationController
   def disclose_id
     if current_user.nil?
       logger.error("ログインしてください; current_user=#{current_user}")
-      raise Exceptions::Notfound.new("ログインしてください")
+      raise Exceptions::NotFound.new("ログインしてください")
     end
-    @disclose_id = current_user.disclose_id
+    @user = current_user
   end
 
   # TODO: 将来対応
