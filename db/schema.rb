@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
     t.datetime "answer_confirmed_at", null: false
     t.integer "answer_confirmed_user", null: false
     t.integer "answer_id", null: false
+    t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "answer_confirmed_user_id"
@@ -30,6 +31,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
     t.integer "question_id", null: false
     t.integer "answer_id", null: false
     t.string "content", limit: 511
+    t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "answer_options_id"
@@ -153,6 +155,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
     t.integer "user_roles_id"
     t.integer "prefectures_id"
     t.index ["disclose_id"], name: "index_users_on_disclose_id", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["prefectures_id"], name: "index_users_on_prefectures_id"
     t.index ["user_roles_id"], name: "index_users_on_user_roles_id"
     t.index ["user_statuses_id"], name: "index_users_on_user_statuses_id"

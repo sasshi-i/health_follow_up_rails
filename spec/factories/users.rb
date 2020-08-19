@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :user_1, class: User do
     id { 1 }
     email { "test@gmail.com" }
-    password_digest { "test" }
+    password { "test" }
     disclose_id { "0lPs2vHb8apb" }
     first_name { "テスト_名" }
     last_name { "テスト_姓" }
@@ -21,7 +21,7 @@ FactoryBot.define do
   factory :user_manager_1, class: User do
     id { 100 }
     email { "test_1@gmail.com" }
-    password_digest { "test" }
+    password { "test" }
     disclose_id { "bLOEqCUcs9Bm" }
     first_name { "テスト_管理者" }
     last_name { "テスト" }
