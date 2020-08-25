@@ -61,27 +61,24 @@ class Init < ActiveRecord::Migration[5.0]
       t.string :address, limit: 511, null: false
       t.string :phone_number, limit: 11, null: false
       t.date :home_remedy_start_on
+      t.date :birth_on
       t.string :affiliation, limit: 128
-      t.integer :user_status_id, null: false
-      t.integer :user_role_id, null: false
-      t.integer :prefecture_id, null: false
+      t.references :user_status, foreign_key: true
+      t.references :user_role, foreign_key: true
+      t.references :prefecture, foreign_key: true
 
       t.timestamps
     end
     add_index "user".pluralize, :disclose_id, unique: true
     add_index "user".pluralize, :email, unique: true
-    add_reference :users, :user_statuses, foreign_key: true
-    add_reference :users, :user_roles, foreign_key: true
-    add_reference :users, :prefectures, foreign_key: true
 
     create_table "referral_hospital".pluralize do |t|
-      t.integer :user_id, null: false
+      t.references :user, foreign_key: true
       t.string :hospital_name, limit: 255, null: false
       t.string :referral_status, limit: 1000
 
       t.timestamps
     end
-    add_reference :referral_hospitals, :users, foreign_key: true
 
     create_table "question_type".pluralize do |t|
       t.string :name, limit: 45, null: false
@@ -92,55 +89,46 @@ class Init < ActiveRecord::Migration[5.0]
 
     create_table "question".pluralize do |t|
       t.string :content, limit: 300, null: false
-      t.integer :question_type_id, null: false
+      t.references :question_type, foreign_key: true
       t.boolean :is_deleted, null: false, default: false
 
       t.timestamps
     end
-    add_reference :questions, :question_types, foreign_key: true
 
     create_table "answer_option".pluralize do |t|
-      t.integer :question_id, null: false
+      t.references :question, foreign_key: true
       t.string :content, limit: 100, null: false
       t.boolean :is_alert, null: false, default: false
       t.boolean :is_deleted, null: false, default: false
 
       t.timestamps
     end
-    add_reference :answer_options, :questions, foreign_key: true
 
     create_table "answer".pluralize do |t|
-      t.integer :user_id, null: false
+      t.references :user, foreign_key: true
       t.boolean :is_deleted, null: false, default: false
 
       t.timestamps
     end
-    add_reference :answers, :users, foreign_key: true
 
     create_table "answer_contents".pluralize do |t|
-      t.integer :answer_option_id
-      t.integer :question_id, null: false
-      t.integer :answer_id, null: false
+      t.references :answer_option, foreign_key: true
+      t.references :question, foreign_key: true
+      t.references :answer, foreign_key: true
       t.string :content, limit: 511
       t.boolean :is_deleted, null: false, default: false
 
       t.timestamps
     end
-    add_reference :answer_contents, :answer_options, foreign_key: true
-    add_reference :answer_contents, :questions, foreign_key: true
-    add_reference :answer_contents, :answers, foreign_key: true
-
 
     create_table "answer_comment".pluralize do |t|
       t.string :comment, limit: 511
       t.datetime :answer_confirmed_at, null: false
-      t.integer :answer_confirmed_user, null: false
-      t.integer :answer_id, null: false
+      t.references :answer_confirmed_user, foreign_key: { to_table: :users}
+      t.references :answer, foreign_key: true
       t.boolean :is_deleted, null: false, default: false
 
       t.timestamps
     end
-    add_reference :answer_comments, :answer_confirmed_user, foreign_key: { to_table: :users}
-    add_reference :answer_comments, :answers, foreign_key: true
   end
 end

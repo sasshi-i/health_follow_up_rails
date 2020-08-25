@@ -15,51 +15,44 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
   create_table "answer_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "comment", limit: 511
     t.datetime "answer_confirmed_at", null: false
-    t.integer "answer_confirmed_user", null: false
-    t.integer "answer_id", null: false
+    t.integer "answer_confirmed_user_id"
+    t.integer "answer_id"
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "answer_confirmed_user_id"
-    t.integer "answers_id"
     t.index ["answer_confirmed_user_id"], name: "index_answer_comments_on_answer_confirmed_user_id"
-    t.index ["answers_id"], name: "index_answer_comments_on_answers_id"
+    t.index ["answer_id"], name: "index_answer_comments_on_answer_id"
   end
 
   create_table "answer_contents", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.integer "answer_option_id"
-    t.integer "question_id", null: false
-    t.integer "answer_id", null: false
+    t.integer "question_id"
+    t.integer "answer_id"
     t.string "content", limit: 511
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "answer_options_id"
-    t.integer "questions_id"
-    t.integer "answers_id"
-    t.index ["answer_options_id"], name: "index_answer_contents_on_answer_options_id"
-    t.index ["answers_id"], name: "index_answer_contents_on_answers_id"
-    t.index ["questions_id"], name: "index_answer_contents_on_questions_id"
+    t.index ["answer_id"], name: "index_answer_contents_on_answer_id"
+    t.index ["answer_option_id"], name: "index_answer_contents_on_answer_option_id"
+    t.index ["question_id"], name: "index_answer_contents_on_question_id"
   end
 
   create_table "answer_options", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.integer "question_id", null: false
+    t.integer "question_id"
     t.string "content", limit: 100, null: false
     t.boolean "is_alert", default: false, null: false
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "questions_id"
-    t.index ["questions_id"], name: "index_answer_options_on_questions_id"
+    t.index ["question_id"], name: "index_answer_options_on_question_id"
   end
 
   create_table "answers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "users_id"
-    t.index ["users_id"], name: "index_answers_on_users_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
   create_table "emergency_contacts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -103,22 +96,20 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
 
   create_table "questions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
     t.string "content", limit: 300, null: false
-    t.integer "question_type_id", null: false
+    t.integer "question_type_id"
     t.boolean "is_deleted", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "question_types_id"
-    t.index ["question_types_id"], name: "index_questions_on_question_types_id"
+    t.index ["question_type_id"], name: "index_questions_on_question_type_id"
   end
 
   create_table "referral_hospitals", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.string "hospital_name", null: false
     t.string "referral_status", limit: 1000
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "users_id"
-    t.index ["users_id"], name: "index_referral_hospitals_on_users_id"
+    t.index ["user_id"], name: "index_referral_hospitals_on_user_id"
   end
 
   create_table "user_roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin", force: :cascade do |t|
@@ -146,31 +137,28 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
     t.string "phone_number", limit: 11, null: false
     t.date "home_remedy_start_on"
     t.string "affiliation", limit: 128
-    t.integer "user_status_id", null: false
-    t.integer "user_role_id", null: false
-    t.integer "prefecture_id", null: false
+    t.integer "user_status_id"
+    t.integer "user_role_id"
+    t.integer "prefecture_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_statuses_id"
-    t.integer "user_roles_id"
-    t.integer "prefectures_id"
     t.index ["disclose_id"], name: "index_users_on_disclose_id", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["prefectures_id"], name: "index_users_on_prefectures_id"
-    t.index ["user_roles_id"], name: "index_users_on_user_roles_id"
-    t.index ["user_statuses_id"], name: "index_users_on_user_statuses_id"
+    t.index ["prefecture_id"], name: "index_users_on_prefecture_id"
+    t.index ["user_role_id"], name: "index_users_on_user_role_id"
+    t.index ["user_status_id"], name: "index_users_on_user_status_id"
   end
 
-  add_foreign_key "answer_comments", "answers", column: "answers_id"
+  add_foreign_key "answer_comments", "answers"
   add_foreign_key "answer_comments", "users", column: "answer_confirmed_user_id"
-  add_foreign_key "answer_contents", "answer_options", column: "answer_options_id"
-  add_foreign_key "answer_contents", "answers", column: "answers_id"
-  add_foreign_key "answer_contents", "questions", column: "questions_id"
-  add_foreign_key "answer_options", "questions", column: "questions_id"
-  add_foreign_key "answers", "users", column: "users_id"
-  add_foreign_key "questions", "question_types", column: "question_types_id"
-  add_foreign_key "referral_hospitals", "users", column: "users_id"
-  add_foreign_key "users", "prefectures", column: "prefectures_id"
-  add_foreign_key "users", "user_roles", column: "user_roles_id"
-  add_foreign_key "users", "user_statuses", column: "user_statuses_id"
+  add_foreign_key "answer_contents", "answer_options"
+  add_foreign_key "answer_contents", "answers"
+  add_foreign_key "answer_contents", "questions"
+  add_foreign_key "answer_options", "questions"
+  add_foreign_key "answers", "users"
+  add_foreign_key "questions", "question_types"
+  add_foreign_key "referral_hospitals", "users"
+  add_foreign_key "users", "prefectures"
+  add_foreign_key "users", "user_roles"
+  add_foreign_key "users", "user_statuses"
 end
