@@ -9,6 +9,7 @@ FactoryBot.define do
     address { "テスト_住所" }
     phone_number { "08011112222" }
     home_remedy_start_on { "2020-01-02" }
+    birth_on { "2020-01-01" }
     affiliation { "テスト_所属" }
     gender { "male" }
     user_status_id { 16 }
@@ -28,6 +29,7 @@ FactoryBot.define do
     address { "テスト_住所" }
     phone_number { "08011112232" }
     home_remedy_start_on { "2020-01-02" }
+    birth_on { "2020-02-01" }
     affiliation { "テスト_所属" }
     gender { "male" }
     user_status_id { 16 }

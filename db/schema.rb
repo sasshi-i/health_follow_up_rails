@@ -136,6 +136,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_000000) do
     t.string "address", limit: 511, null: false
     t.string "phone_number", limit: 11, null: false
     t.date "home_remedy_start_on"
+    t.date "birth_on"
     t.string "affiliation", limit: 128
     t.integer "user_status_id"
     t.integer "user_role_id"
