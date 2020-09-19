@@ -19,7 +19,7 @@ class User < ApplicationRecord
       birthOn: self.birth_on,
       homeRemedyStartOn: self.home_remedy_start_on,
       userStatusId: self.user_status_id,
-      is_alert: is_alert,
+      isAlert: is_alert,
     }
   end
 

@@ -59,3 +59,6 @@ gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # 認証
 gem "knock"
+
+# CORS対応
+gem "rack-cors"
